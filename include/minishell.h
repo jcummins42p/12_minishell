@@ -25,7 +25,6 @@
 # include <string.h>	// NULL definition and string functions
 # include <signal.h>	// signal-handling
 # include <termios.h>
-# include <threads.h>	// threads, mutexes
 
 # include <sys/stat.h>
 # include <sys/types.h>
