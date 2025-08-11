@@ -27,7 +27,7 @@ typedef struct s_pipex
 	int			fd_pipe[2];		// needed for pipe
 	int			fd_in;			// this is for re-direction - From
 	int			fd_out;			// this is for re-direction - To
-	char		**cmd_paths;
+	char		**cmd_paths;	// split along : from env PATH variable - need to free?
 	char		**cmd_args;
 	char		*cmd;
 }	t_pipex;

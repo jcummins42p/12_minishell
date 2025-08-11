@@ -6,7 +6,7 @@
 /*   By: akretov <akretov@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 15:46:05 by akretov           #+#    #+#             */
-/*   Updated: 2024/08/21 16:17:01 by jcummins         ###   ########.fr       */
+/*   Updated: 2025/08/11 11:50:00 by jcummins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,8 @@ int	init_pid(t_pipex *pipex, int n_pipes)
 
 void	init_pipex(t_mshell *msh)
 {
+	
+	char **tmp = env_get_value(&msh->envlist, "PATH");
 	msh->pipex = (t_pipex *)malloc(sizeof(t_pipex));
 	if (msh->pipex == NULL)
 	{
@@ -62,15 +64,13 @@ void	init_pipex(t_mshell *msh)
 	msh->pipex->fd_pipe[1] = 0;
 	msh->pipex->fd_in = dup(STDIN_FILENO);
 	msh->pipex->fd_out = dup(STDOUT_FILENO);
-	msh->pipex->cmd_paths = ft_split(*msh->path, ':');
-	if (!msh->pipex->cmd_paths)
-	{
-		msh->pipex->cmd_paths = NULL;
-		return ;
-	}
 	msh->pipex->status = 0;
 	msh->pipex->cmd = NULL;
 	msh->pipex->cmd_args = NULL;
 	msh->pipex->pid = NULL;
 	msh->pipex->rd_flag = false;
+	msh->pipex->cmd_paths = NULL;
+	if (tmp && *tmp)
+		msh->pipex->cmd_paths = ft_split(*tmp, ':');
+	msh->path = msh->pipex->cmd_paths;
 }
